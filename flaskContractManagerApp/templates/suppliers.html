@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br><br><br>
+    <h1>Fornecedores</h1>
+
+    <a href="{{ url_for('create_supplier') }}" class="new-supplier-btn">+</a>
+
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>CNPJ</th>
+            <th>Endereço</th>
+            <th>Ações</th>
+        </tr>
+        {% for supplier in suppliers %}
+            <tr>
+                <td>{{ supplier.name }}</td>
+                <td>{{ supplier.contact_info }}</td>
+                <td>{{ supplier.cnpj }}</td>
+                <td>{{ supplier.address }}</td>
+                <td>
+                	<a href="{{ url_for('edit_supplier', supplier_id=supplier.id) }}">Editar</a>
+                    <!-- Add a delete button that sends a POST request to the delete_supplier route -->
+                    <a href="{{ url_for('delete_supplier', supplier_id=supplier.id) }}">Deletar</a>                        
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+

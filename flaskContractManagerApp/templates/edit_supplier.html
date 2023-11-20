@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br><br><br>
+    <h1>Editar Fornecedor</h1>
+    <form action="{{ url_for('edit_supplier', supplier_id=supplier.id) }}" method="post">
+        <input type="text" name="name" placeholder="Name" value="{{ supplier.name }}" required>
+        <input type="text" name="contact_info" placeholder="Contact Info" value="{{ supplier.contact_info }}" required>
+        <input type="text" name="cnpj" placeholder="CNPJ" value="{{ supplier.cnpj }}" required>
+        <input type="text" name="address" placeholder="Address" value="{{ supplier.address }}" required>
+        <input type="submit" value="Update Supplier">
+    </form>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br><br><br>
+    <h1>Criar Usuário</h1>
+    <form action="{{ url_for('create_user') }}" method="post">
+        <div class="form-group">
+            <label for="username">Nome de usuário</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Senha</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="role_id">Cargo</label>
+            <select name="role_id" class="form-control" required>
+                {% for role in roles %}
+                    <option value="{{ role.id }}">{{ role.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="name">Nome</label>
+            <input type="text" name="name" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="contact_info">Informações de Contato</label>
+            <input type="text" name="contact_info" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="position">Cargo</label>
+            <input type="text" name="position" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="department">Departamento</label>
+            <input type="text" name="department" class="form-control">
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Criar Usuário</button>
+    </form>
+{% endblock %}
+

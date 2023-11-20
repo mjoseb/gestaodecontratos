@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+</br></br></br></br>
+<div class="container mt-5">
+    <h2 class="mb-4">Editar Observações para {{ mes }}/{{ ano }}</h2>
+    
+    <form action="{{ url_for('edit_observacoes_mensais', contrato_id=contrato_id, mes=mes, ano=ano) }}" method="post">
+        {% for obs in observacoes %}
+        <div class="mb-3">
+            <h5>{{ obs.item_documento.clausula }}</h5> <!-- Aqui estamos utilizando o atributo clausula para exibir o nome do item -->
+            <label for="observacao_{{ obs.id }}" class="form-label">Observação:</label>
+            <textarea name="observacao_{{ obs.id }}" class="form-control" rows="3">{{ obs.observacao }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="status_{{ obs.id }}" class="form-label">Status:</label>
+            <select name="status_{{ obs.id }}" class="form-select">
+                <option value="Não Atendido" {% if obs.status == 'Não Atendido' %}selected{% endif %}>Não Atendido</option>
+                <option value="Atendido" {% if obs.status == 'Atendido' %}selected{% endif %}>Atendido</option>
+                <!-- Adicione outras opções de status conforme necessário -->
+            </select>
+        </div>
+        <hr>
+        {% endfor %}
+
+         <!-- Campo para editar observações gerais -->
+        <div class="mb-3">
+            <label for="observacoes_gerais" class="form-label">Observações Gerais:</label>
+            <textarea name="observacoes_gerais" id="observacoes_gerais" class="form-control" rows="5">{{ observacoes_gerais }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    </form>
+</div>
+{% endblock %}
+
+
+

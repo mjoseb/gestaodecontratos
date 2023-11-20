@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br><br><br>
+    <h1>Editar Contrato</h1>
+    <form action="{{ url_for('edit_contrato', contrato_id=contrato.id) }}" method="post" enctype="multipart/form-data">
+        <!-- Campos do contrato -->
+        <div class="form-group">
+            <label for="title">Título</label>
+            <input type="text" name="title" class="form-control" value="{{ contrato.title }}" required>
+        </div>
+        <div class="form-group">
+            <label for="start_date">Data de Início</label>
+            <input type="date" name="start_date" class="form-control" value="{{ contrato.start_date }}" required>
+        </div>
+        <div class="form-group">
+            <label for="end_date">Data de Término</label>
+            <input type="date" name="end_date" class="form-control" value="{{ contrato.end_date }}" required>
+        </div>
+    
+
+<div class="form-group">
+            <label for="manager_id">Gestor(es)</label>
+            <select id="manager_id" name="manager_id[]" class="form-control select2" multiple="multiple" required>
+                {% for user in users %}
+                    <option value="{{ user.id }}" {% if user in contrato.managers %}selected{% endif %}>{{ user.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="auditor_id">Fiscal(is)</label>
+            <select name="auditor_id[]" class="form-control select2" multiple="multiple" required>
+                {% for user in users %}
+                    <option value="{{ user.id }}" {% if user in contrato.auditors %}selected{% endif %}>{{ user.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="supplier_id">Fornecedor</label>
+            <select name="supplier_id" class="form-control" required>
+                {% for supplier in suppliers %}
+                    <option value="{{ supplier.id }}" {% if supplier.id == contrato.supplier_id %}selected{% endif %}>{{ supplier.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="balance">Saldo</label>
+            <input type="number" step="0.01" name="balance" class="form-control" value="{{ contrato.balance }}" required>
+        </div>
+        <div class="form-group">
+            <label for="document">Documento</label>
+            <input type="file" name="document" class="form-control" value="{{ contrato.document }}">
+        </div>
+        <div class="form-group">
+            <label for="contrato_number">Número do Contrato</label>
+            <input type="text" name="contrato_number" class="form-control" value="{{ contrato.contrato_number }}" required>
+        </div>
+        <div class="form-group">
+            <label for="original_process">Processo Original</label>
+            <input type="number" name="original_process" class="form-control" value="{{ contrato.original_process }}" required>
+        </div>
+        <div class="form-group">
+            <label for="update_date">Data de Atualização</label>
+            <input type="date" name="update_date" class="form-control" value="{{ contrato.update_date }}" required>
+        </div>
+        <div class="form-group">
+            <label for="update_protocol">Protocolo de Atualização</label>
+            <input type="number" name="update_protocol" class="form-control" value="{{ contrato.update_protocol }}" required>
+        </div>
+        <div class="form-group">
+            <label for="duration">Duração</label>
+            <input type="number" name="duration" class="form-control" value="{{ contrato.duration }}" required>
+        </div>
+
+        
+        <div class="form-group">
+            <label for="monthly_value">Valor Mensal</label>
+            <input type="number" step="0.01" name="monthly_value" class="form-control" value="{{ contrato.monthly_value }}" required>
+        </div>
+        <div class="form-group">
+            <label for="total_value">Valor Total</label>
+            <input type="number" step="0.01" name="total_value" class="form-control" value="{{ contrato.total_value }}" required>
+        </div>
+
+        <!-- Campos para relacionamentos -->
+        <div class="form-group">
+        <label for="author_id">Autor</label>
+        <select name="author_id" class="form-control" required>
+            {% for author in authors %}
+                <option value="{{ author.id }}" {% if author.id == contrato.author_id %}selected{% endif %}>{{ author.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <!-- ... -->
+    <div class="form-group">
+        <label for="origin_id">Origem</label>
+        <select name="origin_id" class="form-control" required>
+        {% for origin in origins %}
+        <option value="{{ origin.id }}" {% if origin.id == contrato.origin_id %}selected{% endif %}>{{ origin.name }}</option>
+        {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="procedimento_id">Procedimento</label>
+        <select name="procedimento_id" class="form-control" required>
+        {% for procedimento in procedimentos %}
+        <option value="{{ procedimento.id }}" {% if procedimento.id == contrato.procedimento_id %}selected{% endif %}>{{ procedimento.name }}</option>
+        {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="classification_id">Classificação</label>
+        <select name="classification_id" class="form-control" required>
+        {% for classification in classifications %}
+        <option value="{{ classification.id }}" {% if classification.id == contrato.classification_id %}selected{% endif %}>{{ classification.name }}</option>
+        {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="sector_id">Setor</label>
+        <select name="sector_id" class="form-control" required>
+        {% for sector in sectors %}
+        <option value="{{ sector.id }}" {% if sector.id == contrato.sector_id %}selected{% endif %}>{{ sector.name }}</option>
+        {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="directorate_id">Diretoria</label>
+        <select name="directorate_id" class="form-control" required>
+        {% for directorate in directorates %}
+        <option value="{{ directorate.id }}" {% if directorate.id == contrato.directorate_id %}selected{% endif %}>{{ directorate.name }}</option>
+        {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="instrument_id">Instrumento</label>
+        <select name="instrument_id" class="form-control" required>
+        {% for instrument in instruments %}
+        <option value="{{ instrument.id }}" {% if instrument.id == contrato.instrument_id %}selected{% endif %}>{{ instrument.name }}</option>
+        {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="last_update_id">Última Atualização</label>
+        <select name="last_update_id" class="form-control" required>
+        {% for last_update in last_updates %}
+        <option value="{{ last_update.id }}" {% if last_update.id == contrato.last_update_id %}selected{% endif %}>{{ last_update.name }}</option>
+        {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Atualizar Contrato</button>
+</form>
+{% endblock %}

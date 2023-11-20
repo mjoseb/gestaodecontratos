@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  
+ <br><br><br>
+
+  <h1>Anexar Documentos - {{ contrato.title }}</h1>
+
+  <form action="{{ url_for('contrato_audit', contrato_id=contrato.id) }}" method="post" enctype="multipart/form-data">
+    <label for="month">Mês:</label>
+    <input type="number" name="month" id="month" min="1" max="12" required>
+
+    <label for="year">Ano:</label>
+    <input type="number" name="year" id="year" min="1900" max="{{ current_year }}" required>
+
+    <!-- Updated input field for audit_type to a select element -->
+    <label for="audit_type">Tipo de auditoria:</label>
+    <select name="audit_type" id="audit_type" required>
+        <option value="Contrato">Contrato</option>
+        <option value="Aditivo">Aditivo</option>
+        <option value="Fiscalização">Fiscalização</option>
+    </select>
+
+    <label for="notes">Descrição:</label>
+    <textarea name="notes" id="notes"></textarea>
+
+    <label for="document">Anexar documento (PDF ou Imagem):</label>
+    <input type="file" name="attachment" id="attachment" accept=".pdf, image/*" required>
+
+    <button type="submit">Anexar Documento</button>
+  </form>
+
+  <h2>Documentos:</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Mês</th>
+        <th>Ano</th>
+        <th>Tipo de auditoria</th> <!-- Added header for audit_type -->
+        <th>Descrição</th>
+        <th>Documento</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for audit in contrato.audits %}
+        <tr>
+          <td>{{ audit.month }}</td>
+          <td>{{ audit.year }}</td>
+          <td>{{ audit.audit_type }}</td> <!-- Added audit_type to the table -->
+          <td>{{ audit.notes }}</td>
+          <td>
+           <a href="{{ url_for('download_document', audit_id=audit.id) }}">Baixar</a>
+          </td>
+         
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

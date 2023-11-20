@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Adicionar Cláusula</h2>
+    <form action="/adicionar_item" method="post">
+        <label for="contrato_id">ID do Contrato:</label>
+        <input type="number" name="contrato_id" required><br><br>
+
+        <label for="codigo_item">Código do Item:</label>
+        <input type="text" name="codigo_item" required><br><br>
+
+        <label for="clausula">Cláusula:</label>
+        <input type="text" name="clausula" required><br><br>
+
+        <label for="descricao">Descrição:</label>
+        <textarea name="descricao" rows="4" cols="50" required></textarea><br><br>
+
+        <label for="observacao">Observação:</label>
+        <textarea name="observacao" rows="4" cols="50"></textarea><br><br>
+
+        <label for="status">Status:</label>
+        <select name="status">
+            <option value="Não Atendido">Não Atendido</option>
+            <option value="Atendido">Atendido</option>
+        </select><br><br>
+
+        <input type="submit" value="Adicionar">
+    </form>
+{% endblock %}

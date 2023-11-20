@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br><br><br>
+    <h1>Criar Instrumento</h1>
+    <form action="{{ url_for('create_instrument') }}" method="post">
+       
+        <div class="form-group">
+            <label for="name">Nome</label>
+            <input type="text" name="name" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Criar Instrumento</button>
+    </form>
+{% endblock %}

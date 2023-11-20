@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br><br><br>
+  <h1>Employees</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Contact Info</th>
+        <th>Position</th>
+        <th>Department</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for employee in employees %}
+        <tr>
+          <td>{{ employee.id }}</td>
+          <td>{{ employee.name }}</td>
+          <td>{{ employee.contact_info }}</td>
+          <td>{{ employee.position }}</td>
+          <td>{{ employee.department }}</td>
+          <td>
+            <a href="{{ url_for('edit_employee', employee_id=employee.id) }}">Edit</a>
+            <a href="{{ url_for('delete_employee', employee_id=employee.id) }}">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+

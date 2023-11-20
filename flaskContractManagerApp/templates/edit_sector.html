@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br><br><br>
+    <h1>Editar Setor</h1>
+    <form action="{{ url_for('edit_sector', sector_id=sector.id) }}" method="post">
+
+        <div class="form-group">
+            <label for="name">Nome</label>
+            <input type="text" name="name" class="form-control" value="{{ sector.name }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    </form>
+{% endblock %}

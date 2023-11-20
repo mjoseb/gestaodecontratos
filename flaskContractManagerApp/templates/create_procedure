@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Criar Procedimento</h1>
+    <form action="{{ url_for('create_procedure') }}" method="post">
+        {{ form.csrf_token }}
+        <div class="form-group">
+            <label for="name">Nome</label>
+            <input type="text" name="name" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Criar Procedimento</button>
+    </form>
+{% endblock %}

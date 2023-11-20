@@ -1,0 +1,15 @@
+from PyPDF2 import PdfFileWriter, PdfFileReader
+
+def delete_first_page(input_pdf, output_pdf):
+    reader = PdfFileReader(input_pdf)
+    writer = PdfFileWriter()
+
+    for page_number in range(1, reader.getNumPages()):
+        page = reader.getPage(page_number)
+        writer.addPage(page)
+
+    with open(output_pdf, 'wb') as output_pdf_file:
+        writer.write(output_pdf_file)
+
+# Chamar a função para deletar a primeira página
+delete_first_page('original.pdf', 'modified.pdf')

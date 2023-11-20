@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Criar Tabela para Contrato: {{ contrato.title }}</h1>
+
+  <form action="{{ url_for('create_contrato_table', contrato_id=contrato.id) }}" method="post">
+    <label for="table_name">Nome da Tabela:</label>
+    <input type="text" name="table_name" required>
+
+    <h3>Colunas</h3>
+    <div id="columns-container">
+      <div>
+        <label for="column_name[]">Nome da Coluna:</label>
+        <input type="text" name="column_name[]" required>
+        <label for="column_type[]">Tipo da Coluna:</label>
+        <select name="column_type[]" required>
+          <option value="String">Texto</option>
+          <option value="Integer">Número</option>
+        </select>
+      </div>
+    </div>
+
+    <button type="button" id="add-column-btn">Adicionar Coluna</button>
+    <button type="submit">Criar Tabela</button>
+  </form>
+
+  <script>
+    document.getElementById('add-column-btn').addEventListener('click', function () {
+      const container = document.getElementById('columns-container');
+      const columnDiv = document.createElement('div');
+      columnDiv.innerHTML = `
+        <label for="column_name[]">Nome da Coluna:</label>
+        <input type="text" name="column_name[]" required>
+        <label for="column_type[]">Tipo da Coluna:</label

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br><br><br>
+  <h1>Criar Modelo de Documento</h1>
+
+  <form action="{{ url_for('create_document_template') }}" method="post" enctype="multipart/form-data">
+    <label for="name">Título:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="template_file">Arquivo: (.doc):</label>
+    <input type="file" id="template_file" name="template_file" accept=".doc,.docx" required>
+
+    <button type="submit">Save</button>
+  </form>
+{% endblock %}

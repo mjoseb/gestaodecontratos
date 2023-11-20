@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br><br><br>
+    <h1>Adicionar Empenho</h1>
+    <form method="POST" action="{{ url_for('add_financial_commitment') }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.contract_id.label }} <br>
+            {{ form.contract_id(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.expense_code.label }} <br>
+            {{ form.expense_code(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.title.label }} <br>
+            {{ form.title(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.value.label }} <br>
+            {{ form.value(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+{% endblock %}

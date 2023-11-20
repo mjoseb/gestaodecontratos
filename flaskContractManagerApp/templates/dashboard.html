@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br><br><br>
+  <div style="align:center" styleclass="dashboard">
+    <h1>Dashboard</h1>
+    <div class="dashboard-sections">
+      <!-- Outras seções do dashboard -->
+
+
+
+      <!-- Seção de gráfico de Fornecedores -->
+<section class="dashboard-section"  >
+    <h2>Contratos Próximos ao Vencimento</h2>
+    <canvas style="text-align: center; display: inline;" id="expirationChart" max-width="50px" max-height="50px"></canvas>
+</section>
+
+<script>
+
+    // Gráfico de Contratos próximos ao vencimento
+    const expirationCtx = document.getElementById('expirationChart').getContext('2d');
+    const expirationChart = new Chart(expirationCtx, {
+        type: 'pie',
+        data: {
+            labels: ['Menos de 90 dias', 'Menos de 120 dias', 'Menos de 180 dias', 'Mais de 180 dias'],
+            datasets: [{
+                data: [{{ contratos_less_than_90_days }}, {{ contratos_less_than_120_days }}, {{ contratos_less_than_180_days }}, {{ contratos_more_than_180_days }}],
+                backgroundColor: ['#dc143c', '#fff44f', '#6495ed', '#7fff00'],
+                borderColor: ['#dc143c', '#fff44f', '#6495ed', '#7fff00'],
+                borderWidth: 1
+            }]
+        },
+        
+    });
+</script>
+
+{% endblock %}
+
+

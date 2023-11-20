@@ -1,0 +1,227 @@
+/* Reset básico para estilos padrão do navegador */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  font-weight: bold;
+  line-height: 1.6;
+  background-color: #f0f0f0;
+}
+
+
+#header_title{
+  font-size: 50px;
+  margin-left: 1em;
+}
+
+
+header {
+  background-color: #1c2e43;
+  color: white;
+  padding: 0rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+nav {
+  text-align: left;
+  padding: 0.5rem 0;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin: 0 0.5rem;
+  color: white;
+}
+
+nav ul li a {
+  color: #000000;
+  text-decoration: none;
+  text-colo
+  padding: 0.25rem 0.5rem;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  border-radius: 4px;
+}
+
+nav ul li a:hover {
+  color: white;
+  background-color: #7CCD32; 
+}
+
+main {
+  padding: 5rem 2rem;
+}
+
+footer {
+  background-color: #1c2e44;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+
+
+form input,
+form select {
+  display: block;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+form button {
+  display: inline-block;
+  background-color: #f25f5c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.3s ease-in-out;
+}
+
+form button:hover {
+  background-color: #1c2e44;
+}
+
+h1 {
+  margin-bottom: 1rem;
+
+  font-weight: bold;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+table th,
+table td {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+table td {
+  text-align: center;
+}
+
+table th {
+  background-color: #eaeaea;
+  font-weight: bold;
+}
+
+
+
+
+.new-contrato-btn,
+.new-supplier-btn,
+.new-user-btn {
+  display: inline-block;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.new-contrato-btn:hover,
+.new-supplier-btn:hover,
+.new-user-btn:hover {
+background-color: #45a049;
+}
+
+/* Add some modern styles */
+.container {
+max-width: 1200px;
+margin: 0 auto;
+}
+
+.alert {
+border-radius: 4px;
+margin-bottom: 1rem;
+padding: 1rem;
+transition: all 0.3s ease-in-out;
+}
+
+.alert-success {
+background-color: #dff0d8;
+color: #3c763d;
+border: 1px solid #d6e9c6;
+}
+
+.red-row {
+    background-color: red !important;
+}
+
+
+/* Responsiveness */
+@media (max-width: 992px) {
+nav ul {
+text-align: center;
+}
+
+nav ul li {
+display: block;
+margin: 0.5rem 0;
+}
+}
+
+
+<style>
+    .icon-container {
+        display: flex;
+        align-items: center;
+    }
+</style>
+
+#filterIcon {
+            background-color: #007BFF;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+#filterIcon:hover {
+  background-color: #0056B3;
+}
+
+#expirationChart{
+  max-width: 400px;
+  max-height: 400px;
+}
+
+
+.nav-item {
+    margin-right: 15px;
+
+}
+
+.nav-link{
+  color: white;
+}

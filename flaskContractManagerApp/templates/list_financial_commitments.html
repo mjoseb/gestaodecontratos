@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br><br><br><br>
+
+    <h1>Lista de Empenhos</h1>
+    <a href="{{ url_for('add_financial_commitment') }}" class="btn btn-primary mb-3">Adicionar Empenho</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Código da Despesa</th>
+                <th>Título</th>
+                <th>Valor</th>
+                <th>ID do Contrato</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for financial_commitment in financial_commitments %}
+            <tr>
+                <td>{{ financial_commitment.id }}</td>
+                <td>{{ financial_commitment.expense_code }}</td>
+                <td>{{ financial_commitment.title }}</td>
+                <td>{{ financial_commitment.value }}</td>
+                <td>{{ financial_commitment.contract_id }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

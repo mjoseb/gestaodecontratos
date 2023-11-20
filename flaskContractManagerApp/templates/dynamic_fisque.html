@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>fisc</title>
+
+
+<style>
+
+    .table, .table th, .table td {
+    border: 0.5pt solid black; /* Define a borda mais fina para a tabela e células da tabela */
+}
+
+    body {
+    font-family: 'Times New Roman', Times, serif;    
+    border: 0.0pt solid black;
+    }
+
+    p{
+        margin-bottom:0px;
+        margin-top:0px;
+        color: darkblue;
+     }
+
+
+    @page {
+            size: a4 portrait;
+            @frame header_frame {           /* Static Frame */
+                -pdf-frame-content: header_content;
+                left: 0pt; right: 0pt; width: 612pt; top:0pt; height: 60pt;
+                border: 0pt;
+            }
+            @frame header_frame {           /* Static Frame */
+                -pdf-frame-content: header_content2;
+                left: 50pt; width: 512pt; top:60pt; height: 600pt;
+                border: 0pt;
+            }
+            @frame content_frame {          /* Content Frame */
+                left: 50pt; width: 512pt; top: 280pt; height: 500pt;
+            }
+            @frame footer_frame {           /* Another static Frame */
+                -pdf-frame-content: footerContent;
+                left: 0pt; width: 612pt; top: 790pt; height: 80pt; border: 0pt;
+                
+            }
+
+            
+        }
+
+        .center-vertical {
+    height: 20px;
+      }
+
+
+</style>
+
+</style></head>
+<body>
+
+
+
+    <div id="header_content">
+        <img style="width:612pt" src="static/header.png">
+    </div>
+
+    <div id="header_content2" class="center-vertical">
+        <h1 align="center">CHECK LIST MENSAL DE CONTRATOS</h1>
+        <div class="table-responsive" style="border: 0.5pt solid black;>
+       <table class="table" style="background-color: #E1EEDA; color: black;">
+        <thead >
+            <p style="background-color: darkblue; color: white; font-style: italic; padding-top: 5px;"><strong>1 - IDENTIFICAÇÃO</strong></p>
+        <p style="padding-top: 5px">Processo Administrativo: {{ contrato.original_process }}</p>
+        <p style="padding-top: 5px">Mês/Ano Avaliação: {{ mes }}/{{ ano }}</p>
+        <p style="padding-top: 5px">
+  Contrato nº: {{ contrato.contrato_number }}&nbsp&nbsp&nbsp&nbsp
+  Início: {{ contrato.start_date|format_date }}&nbsp&nbsp&nbsp&nbsp
+  Término: {{ contrato.end_date|format_date }}
+</p>
+
+        <p style="padding-top: 5px">Objeto do Contrato: {{ contrato.title }}</p>
+        <p style="padding-top: 5px">Valor do Contrato: {{ contrato.total_value }}</p>
+        <p style="padding-top: 5px">Unidade Demandante: Hospital Dr. Anísio Figueiredo - Zona Norte de Londrina</p>
+        <p style="padding-top: 5px">Gestor do Contrato: {% for manager in contrato.managers %}{{ manager.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+        <p style="padding-top: 5px">Fiscal do Contrato: {% for auditor in contrato.auditors %}{{ auditor.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+        <p style="padding-top: 5px">Empresa Contratada: {{ contrato.supplier.name }}</p>
+        <p style="background-color: darkblue; color: white; font-style: italic; padding-top: 5px;"><strong>2 - ACOMPANHAMENTO</strong></p>
+
+        <div class="table-responsive" style="border: 0.5pt;background-color: #E1EEDA; height: 40px;">
+       <table class="table" style="background-color: #E1EEDA; color: black;">
+        <thead >
+            <tr style="margin-top:5px">
+            <th style="border: 0.5pt ; background-color: #E1EEDA; color: black;"><center>ITEM</center></th>
+            <th style="border: 0.5pt solid black; background-color: #E1EEDA;color: black;">CLÁUSULA</th>
+            <th style="border: 0.5pt solid black; background-color: #E1EEDA;color: black;">DESCRIÇÃO</th>
+
+            <th style="border: 0.5pt solid black; background-color: #E1EEDA;color: black; align: center">STATUS</th>
+            <th style="border: 0.5pt solid black; background-color: #E1EEDA;color: black;">OBSERVAÇÕES</th>
+            </tr>
+
+            
+        </thead>
+    </div> 
+
+        
+</table></div></div></div>
+
+
+
+    <div id="footerContent">
+        <img src="static/rodape.png">
+    </div>
+
+
+
+
+    <div id="content_frame">
+        <div class="table-responsive" style="border: 0.5pt;background-color: #E1EEDA; height: 40px;">
+       <table class="table" style="background-color: #E1EEDA; color: black;">
+        <thead>            
+        </thead>
+    </div> 
+
+
+
+    <tbody>
+        {% for obs in observacoes %}
+        <tr style="height: 40px;">
+        <td style="background-color: #E1EEDA;"><p style=" background-color: #E1EEDA; align:center;"><center>{{ obs.item_documento.id }}</center></p></td>
+        <td style="border: 0.5pt solid black; background-color: #E1EEDA;align:center;"><p style="align:center"></p>{{ obs.item_documento.clausula }}</td>
+
+        <td style="background-color: #E1EEDA; word-wrap: break-word";align:center;>{{ obs.item_documento.descricao }}</td>
+        <td style="border: 0.5pt solid black; background-color: #E1EEDA;align:center;">{{ obs.status  }}</td>
+        <td style="word-wrap break-word; border: 0.5pt solid black; background-color: #E1EEDA;align:center;">{{ obs.observacao }}</td>
+    </tr>
+
+            {% endfor %}
+
+
+            </table></div></div>
+
+
+    </tbody>
+
+    {% if observacoes_gerais %}
+<div style="margin-top: 20px;">
+    <p style="background-color: darkblue; color: white; font-style: italic; padding-top: 5px; border: 0.5pt solid black"><strong>OBSERVAÇÕES GERAIS</strong></p>
+    <p style="border: 0.5pt solid black; padding: 5px;">{{ observacoes_gerais }}</p>
+</div>
+{% endif %}
+
+    
+
+</body>
+</html>
+
+
+

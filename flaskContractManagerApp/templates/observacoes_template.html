@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+</br></br></br></br>
+
+
+<div class="container mt-5"> <!-- Adicionado mt-5 para adicionar espaço no topo -->
+    <form method="post" action="{{ url_for('observacoes_mensais', contrato_id=contrato_id) }}">
+
+        <div class="row mb-3"> <!-- Adicionado uma row para os campos de mês e ano -->
+            <div class="col-md-6">
+                <label for="mes">Mês:</label>
+                <select class="form-control" name="mes"> <!-- Adicionado form-control para estilização -->
+                    {% for i in range(1, 13) %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="ano">Ano:</label>
+                <input class="form-control" type="number" name="ano"> <!-- Adicionado form-control para estilização -->
+            </div>
+        </div>
+
+        {% for item in itens %}
+        <div class="card mb-3"> <!-- Adicionado card para cada item -->
+            <div class="card-body">
+                <h4>{{ item.descricao }}</h4>
+                <div class="mb-3">
+                    <label for="observacao_{{ item.id }}">Observação:</label>
+                    <textarea class="form-control" name="observacao_{{ item.id }}"></textarea> <!-- Adicionado form-control para estilização -->
+                </div>
+                <div>
+                    <label for="status_{{ item.id }}">Status:</label>
+                    <select class="form-control" name="status_{{ item.id }}"> <!-- Adicionado form-control para estilização -->
+                        <option value="Atendido">Atendido</option>
+                        <option value="Não Atendido">Não Atendido</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div style="margin: 20px;">
+
+
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="mb-3">
+                <label for="ano">Observações Gerais:</label>
+                <input class="form-control" type="text" name="observacoes_gerais"> <!-- Adicionado form-control para estilização -->
+            </div></div></div>
+        
+
+        <div class="d-flex justify-content-end">
+            <input class="btn btn-primary" type="submit" value="Salvar Observações"> <!-- Adicionado btn e btn-primary para estilização -->
+        </div>
+        
+    </form>
+</div>
+
+{% endblock %}
+

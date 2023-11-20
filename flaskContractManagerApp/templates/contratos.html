@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <br><br><br>
+    <h1>Contratos</h1>
+
+
+    
+    <a href="{{ url_for('create_contrato') }}" class="new-contrato-btn">+</a>
+        <button id="filterIcon"><i class="fa-solid fa-filter"></i>🔍</button>
+    <div id="searchFormContainer">
+      <form action="{{ url_for('contratos') }}" method="get" class="search-form">
+        <input type="text" name="search" placeholder="Pesquisar contratos..." value="{{ request.args.get('search', '') }}" />
+        <select name="directorates" id="directorates">
+           <option value="">Diretoria</option>
+            {% for directorate in directorates %}
+            <option value="{{ directorate.id }}">{{ directorate.name }}</option>
+            {% endfor %}
+        </select>
+        <select name="sectors" id="sectors">
+           <option value="">Setor</option>
+            {% for sector in sectors %}
+            <option value="{{ sector.id }}">{{ sector.name }}</option>
+            {% endfor %}
+        </select>
+        <select name="manager">
+            <option value="">Gestor</option>
+            {% for manager in managers %}
+                <option value="{{ manager.id }}" {% if request.args.get('manager') == manager.id|string %}selected{% endif %}>{{ manager.username }}</option>
+            {% endfor %}
+        </select>
+        <select name="auditor">
+            <option value="">Fiscal</option>
+            {% for auditor in auditors %}
+                <option value="{{ auditor.id }}" {% if request.args.get('auditor') == auditor.id|string %}selected{% endif %}>{{ auditor.username }}</option>
+            {% endfor %}
+        </select>
+        <select name="days_filter">
+            <option value="">Vencimento</option>
+            <option value="90" {% if request.args.get('days_filter') == '90' %}selected{% endif %}>Menos de 90 dias</option>
+            <option value="120" {% if request.args.get('days_filter') == '120' %}selected{% endif %}>Menos de 120 dias</option>
+            <option value="180" {% if request.args.get('days_filter') == '180' %}selected{% endif %}>Menos de 180 dias</option>
+        </select>
+        <button type="submit">Pesquisar</button>
+    </form>
+    </div>
+
+    <table class="table table-striped table-hover" id="contratos-table">
+    <thead>
+        <tr>
+           <!--<th class="sortable">ID</th>-->
+            <th class="sortable">Objeto</th>
+            <th class="sortable" data-type="date">Início</th>
+            <!--<th class="sortable" data-type="date">Fim</th>-->
+            
+            <!--<th class="sortable">Gestor</th>
+            <th class="sortable">Fiscal</th>-->
+            <th class="sortable">Fornecedor</th>
+            <th class="sortable">Nº Contrato</th>
+            <!--<th class="sortable">Processo Original</th>-->
+            <!--<th class="sortable">Autor</th>-->
+            <th class="sortable">Origem</th>
+            <th class="sortable">Procedimento</th>
+            <!--<th class="sortable">Classificação</th>-->
+            <th class="sortable">Setor</th>
+            <!--<th class="sortable">Diretoria</th>-->
+            <th class="sortable">Instrumento</th>
+            <!--<th class="sortable">Última Atualização</th>
+            <th class="sortable">Data Atualização</th>-->
+            <th class="sortable">Protocolo Atualização</th>
+            <th class="sortable">Duração</th>
+            <th class="sortable" data-type="number">Vencimento</th>
+            <th class="sortable">Saldo</th>
+            <th class="sortable">%Saldo</th>
+            <!--<th class="sortable">Valor Mensal</th>
+            <th class="sortable">Valor Total</th>-->
+            <th class="sortable">Editar</th>
+            <th class="sortable">Excluir</th>
+            <th class="sortable">Visualizar</th>
+            <th class="sortable">Documentos</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for contrato, remaining_days in contratos %}
+            {% if remaining_days < 90 %}                
+                    <tr class="alert alert-danger">
+                
+                    {% elif remaining_days < 120  %}
+                    <tr class="alert alert-warning">
+                    {% else %}
+                    <tr class="alert alert-success">
+                {% endif %}
+                
+
+                   <!-- <td>{{ contrato.id }}</td> -->
+                    <td>{{ contrato.title }}</td>
+                    <td>{{ contrato.start_date.strftime('%Y-%m-%d') }}</td>
+                    <!--<td>{{ contrato.end_date.strftime('%Y-%m-%d') }}</td>-->
+                    
+                   <!-- <td>
+                    {% for manager in contrato.managers %}
+                        {{ manager.username }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for auditor in contrato.auditors %}
+                        {{ auditor.username }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>-->
+                    <td>{{ contrato.supplier.name }}</td>
+                    <td>{{ contrato.contrato_number }}</td>
+                      <!--<td>{{ contrato.original_process }}</td>-->
+                    <!--<td>{{ contrato.author.name }}</td>-->
+                    <td>{{ contrato.origin.name }}</td>
+                    <td>{{ contrato.procedimento.name }}</td>
+                    <!--<td>{{ contrato.classification.name }}</td>-->
+                    <td>{{ contrato.sector.name }}</td>
+                    <!--<td>{{ contrato.directorate.name }}</td>-->
+                    <td>{{ contrato.instrument.name }}</td>
+                    <!--<td>{{ contrato.last_update.name }}</td>
+                    <td>{{ contrato.update_date.strftime('%Y-%m-%d') }}</td>-->
+                    <td>{{ contrato.update_protocol }}</td>
+                    <td>{{ contrato.duration }}</td>
+                    <td>{{ remaining_days }} dias</td>
+                    <td>{{ contrato.balance }}</td>
+                    <td>{{ (contrato.balance / contrato.initial_balance * 100)|round(2) }}%</td>
+                    <!--<td>{{ contrato.monthly_value }}</td>
+                    <td>{{ contrato.total_value }}</td>-->
+                    <td><a class="btn btn-warning btn-sm" href="{{ url_for('edit_contrato', contrato_id=contrato.id) }}">✏️</a></td>
+                    <td><form  action="{{ url_for('delete_contrato', contrato_id=contrato.id) }}" method="post">
+<button class="btn btn-danger btn-sm" type="submit">❌</button>
+</form></td>
+                    <td><a class="btn btn-info btn-sm" href="{{ url_for('contrato_details', contrato_id=contrato.id) }}">👁️</a></td>
+                    <td>
+                    <div class="icon-container">
+                
+
+
+<a class="btn btn-light btn-sm" href="{{ url_for('contrato_audit', contrato_id=contrato.id) }}"> 📁</a>
+</td>
+</div>
+</tr>
+
+
+
+{% endfor %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const directoratesDropdown = document.getElementById('directorates');
+        const sectorsDropdown = document.getElementById('sectors');
+        
+        // Fetch all sectors initially
+        fetchAllSectors();
+
+        directoratesDropdown.addEventListener('change', function() {
+            const directorateId = directoratesDropdown.value;
+            
+            if (directorateId) {
+                fetch(`/get_sectors?directorate_id=${directorateId}`, {
+                    credentials: 'same-origin'
+                })
+                    .then(response => response.json())
+                    .then(updateSectorsDropdown);
+            } else {
+                // If no directorate is selected, fetch all sectors
+                fetchAllSectors();
+            }
+        });
+        
+        function fetchAllSectors() {
+            fetch('/get_all_sectors', {
+                credentials: 'same-origin'
+            })
+                .then(response => response.json())
+                .then(updateSectorsDropdown);
+        }
+
+        function updateSectorsDropdown(sectors) {
+            // Clear the sectors dropdown
+            sectorsDropdown.innerHTML = '';
+
+            // Add the new sector options
+            sectors.forEach(sector => {
+                const option = document.createElement('option');
+                option.value = sector.id;
+                option.textContent = sector.name;
+                sectorsDropdown.appendChild(option);
+            });
+        }
+    });
+</script>
+
+</tbody>
+
+</table>
+
+{% endblock %}
+
+
+

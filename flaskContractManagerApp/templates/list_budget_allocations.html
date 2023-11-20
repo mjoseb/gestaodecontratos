@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<br><br><br><br><br>
+
+    <h1>Lista de Dotações Orçamentárias</h1>
+    <a href="{{ url_for('add_budget_allocation') }}" class="btn btn-primary mb-3">Adicionar Dotação Orçamentária</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Código da Despesa</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for budget_allocation in budget_allocations %}
+            <tr>
+                <td>{{ budget_allocation.id }}</td>
+                <td>{{ budget_allocation.expense_code }}</td>
+                <td>{{ budget_allocation.value }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

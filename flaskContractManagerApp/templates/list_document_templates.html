@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br><br>
+<br>
+  <br><br><br><h1>Modelos de Documentos</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for document_template in document_templates %}
+        <tr>
+          <td>{{ document_template.id }}</td>
+          <td>{{ document_template.name }}</td>
+          <td>
+            <a href="{{ url_for('download_document_template', document_template_id=document_template.id) }}">Baixar</a>
+            <!-- Adicione outras ações aqui, como editar ou excluir -->
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

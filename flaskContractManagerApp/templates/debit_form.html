@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<br><br><br><br><br>
+
+    <h1>Realizar Débito em Contrato</h1>
+    <form action="/debit" method="post">
+        <label for="contract_number">Número do Contrato:</label>
+        <input type="text" id="contract_number" name="contract_number" required>
+        <br>
+        <label for="debit_value">Valor do Débito:</label>
+        <input type="number" id="debit_value" name="debit_value" step="0.01" min="0" required>
+        <br>
+        <label for="debit_month">Mês do Débito:</label>
+        <input type="number" id="debit_month" name="debit_month" min="1" max="12" required>
+        <br>
+        <label for="debit_year">Ano do Débito:</label>
+        <input type="number" id="debit_year" name="debit_year" min="1900" required>
+        <br>
+        <input type="submit" value="Realizar Débito">
+    </form>
+
+{% endblock %}

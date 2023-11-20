@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <br><br><br>
+    <h1>{{ contrato.title }}</h1>
+
+    <p><strong>ID:</strong> {{ contrato.id }}</p>
+    <p><strong>Data Início:</strong> {{ contrato.start_date.strftime('%Y-%m-%d') }}</p>
+    <p><strong>Data Fim:</strong> {{ contrato.end_date.strftime('%Y-%m-%d') }}</p>
+    <p><strong>Saldo:</strong> {{ contrato.balance }}</p>
+    <p><strong>Gestores:</strong> {% for manager in contrato.managers %}{{ manager.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+    <p><strong>Fiscais:</strong> {% for auditor in contrato.auditors %}{{ auditor.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+    <p><strong>Fornecedor:</strong> {{ contrato.supplier.name }}</p>
+    <p><strong>Autor:</strong> {{ contrato.author.name }}</p>
+    <p><strong>Origem:</strong> {{ contrato.origin.name }}</p>
+    <p><strong>Procedimento:</strong> {{ contrato.procedimento.name }}</p>
+    <p><strong>Classificação:</strong> {{ contrato.classification.name }}</p>
+    <p><strong>Setor:</strong> {{ contrato.sector.name }}</p>
+    <p><strong>Diretoria:</strong> {{ contrato.directorate.name }}</p>
+    <p><strong>Instrumento:</strong> {{ contrato.instrument.name }}</p>
+    <p><strong>Última Atualização:</strong> {{ contrato.last_update.name }}</p>
+
+
+
+
+    <a href="{{ url_for('edit_contrato', contrato_id=contrato.id) }}">Editar</a>
+    <a href="{{ url_for('delete_contrato', contrato_id=contrato.id) }}">
+
+    Deletar</a>
+
+    <h2>Fiscalização</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Mês</th>
+            <th>Ano</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for mes, ano in unique_mes_ano %}
+            <tr>
+                <td>{{ mes }}</td>
+                <td>{{ ano }}</td>
+                <td>
+                    <a href="{{ url_for('edit_observacoes_mensais', contrato_id=contrato.id, mes=mes, ano=ano) }}">Editar</a>
+
+                  
+                    <form action="{{ url_for('delete_observacoes_mensais', contrato_id=contrato.id, mes=mes, ano=ano) }}" method="post" onsubmit="return confirm('Você tem certeza que deseja deletar todas as observações deste mês e ano?');">
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
+
+<div class="mt-4">
+    <a href="{{ url_for('fiscalizacao', contrato_id=contrato.id, mes=mes, ano=ano) }}" class="btn btn-primary">
+        📄
+    </a>
+</div>
+
+                </td>
+                
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+     <h2>Documentos:</h2>
+    {% set audit_types = ['Contrato', 'Aditivo', 'Fiscalização'] %}
+    {% for audit_type in audit_types %}
+      <h3>{{ audit_type }}</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Mês</th>
+            <th>Ano</th>
+            <th>Notas</th>
+            <th>Documento</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for audit in contrato.audits %}
+            {% if audit.audit_type == audit_type %}
+              <tr>
+                <td>{{ audit.month }}</td>
+                <td>{{ audit.year }}</td>
+                <td>{{ audit.notes }}</td>
+                <td>
+                  <a href="{{ url_for('download_document', audit_id=audit.id) }}">Baixar</a>
+                </td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endfor %}
+{% endblock %}
+
+
+
+

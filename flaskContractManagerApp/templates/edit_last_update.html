@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br><br><br>
+    <h1>Editar Última Atualização</h1>
+    <form action="{{ url_for('edit_last_update', last_update_id=last_update.id) }}" method="post">
+
+        <div class="form-group">
+            <label for="name">Nome</label>
+            <input type="text" name="name" class="form-control" value="{{ last_update.name }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    </form>
+{% endblock %}

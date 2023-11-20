@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br><br><br>
+    <h1>Editar Instrumento</h1>
+    <form action="{{ url_for('edit_instrument', instrument_id=instrument.id) }}" method="post">
+
+        <div class="form-group">
+            <label for="name">Nome</label>
+            <input type="text" name="name" class="form-control" value="{{ instrument.name }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    </form>
+{% endblock %}

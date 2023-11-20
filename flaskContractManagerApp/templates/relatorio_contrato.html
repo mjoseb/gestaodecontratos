@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<br><br><br><br><br>
+<h2>Relatório do Contrato: {{ contrato.name }}</h2>
+<form method="post">
+    <label for="mes">Mês:</label>
+    <input type="number" name="mes" required>
+    <label for="ano">Ano:</label>
+    <input type="number" name="ano" required>
+    <table>
+        <thead>
+            <tr>
+                <th>Cláusula</th>
+                <th>Descrição</th>
+                <th>Observação</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in itens %}
+            <tr>
+                <td>{{ item.clausula }}</td>
+                <td>{{ item.descricao }}</td>
+                <td><input type="text" name="observacao_{{ item.id }}"></td>
+                <td>
+                    <select name="status_{{ item.id }}">
+                        <option value="Atendido">Atendido</option>
+                        <option value="Não Atendido">Não Atendido</option>
+                    </select>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit">Salvar Relatório</button>
+</form>
+{% endblock %}
